@@ -1,5 +1,41 @@
+# Long Practice: Intro to React Forms
 
-# Create React App Template
+For this project, I have creatied a user registration form in React.
+
+## The Input Fields
+- Name
+- Email
+- Phone number
+- Phone type: Home, Work, or Mobile (dropdown menu)
+- Staff: Instructor or Student (radio buttons)
+- Bio (text area)
+- Sign up for email notifications (checkbox)
+- On submit, the form should validate the input in each field and either inform the user of any errors or, if the input has no errors, send the data off as JSON. (Since there is no backend, the form has correctly captured the input by printing the form data with console.log() instead.)
+
+## Validations
+- Name must be present
+- Email must be present and should be properly formatted
+- Phone number should be properly formatted
+- Phone type should be selected if a phone number is present
+- Bio should have a character limit of 280 characters
+- The name and bio field can be validated in vanilla JS but validating email and phone numbers is a bit more complex.
+- The form should block submission and display a descriptive error message whenever validations fail.
+
+## Bonus
+- Store the time of submission as another key-value pair in the JSON object you console.log.  Hint: Use Date
+- Disable the phoneType dropdown menu if the Phone field is empty
+- Add a placeholder to show the proper format for inputting a phone number
+- On submit, make sure the phoneType is blank in your JSON object if no phone is given (even if there is a phoneType selected)
+- Highlight fields that fail validation in red
+- Associate each error message with its field on the form instead of printing them all at the top
+- Render errors without shifting the form fields up or down.  Hint: Reserve space for the error messages even when they are not present
+- After a user has submitted a form with errors, validate the updates on keystroke instead of waiting for submit so the errors clear as soon as they are fixed
+- If you have accomplished all of the above, your Form component has likely grown quite large. It also probably has some repeated lines of code. Remember that shorter, more modular code that does not repeat itself is easier to understand and maintain. With that in mind, refactor your code to clean up your Form component! In particular, look to see if any code blocks could be refactored into their own React components.
+- Suggestion: Consider rendering each input type (text, select, textarea, radio, checkbox) as a React component. To help keep your code manageable and modularized, define each new component in its own file.
+- Try adding the validations to their respective input components. (You will need to create separate validation functions for each field.)
+- Add CSS styling
+
+## Create React App Template
 
 A no-frills template from which to create React applications with
 [Create React App](https://github.com/facebook/create-react-app).
