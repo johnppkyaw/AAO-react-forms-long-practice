@@ -23,6 +23,6 @@ fieldset {
 .error {
   color: var(--error-msg-color);
   font-size: var(--error-font-size);
-  height: 12px;
+  height: fit-content;
   width: 220px;
 }

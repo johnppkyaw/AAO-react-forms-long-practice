@@ -53,7 +53,11 @@ const Submit = () => {
 
     if(Object.keys(validationErrors).length > 0) {
       return alert(`The following errors were found:
-      ${validationErrors.name ? "* " + validationErrors.name : ""}`)
+      ${validationErrors.name ? "* " + validationErrors.name : ""}
+      ${validationErrors.email ? "* " + validationErrors.email : ""}
+      ${validationErrors.phone ? "* " + validationErrors.phone : ""}
+      ${validationErrors.phoneType ? "* " + validationErrors.phoneType : ""}
+      ${validationErrors.bio ? "* " + validationErrors.bio : ""}`)
     }
 
     const data = {
@@ -103,9 +107,21 @@ const Submit = () => {
         <input id="email" type="email" onChange={(e) => setEmail(prev=>e.target.value)} value={email}></input>
       </div>
 
+      <div className='error' style={{
+        display: submitted && validationErrors.email ? 'block' : 'none'
+      }}>
+        {submitted && validationErrors.email && `* ${validationErrors.email}`}
+      </div>
+
       <div>
         <label htmlFor="phone">Phone number:</label>
         <input id="phone" type="tel" onChange={(e)=> setPhone(prev => e.target.value)} value={phone}></input>
+      </div>
+
+      <div className='error' style={{
+        display: submitted && validationErrors.phone ? 'block' : 'none'
+      }}>
+        {submitted && validationErrors.phone && `* ${validationErrors.phone}`}
       </div>
 
       <div>
@@ -116,6 +132,12 @@ const Submit = () => {
           <option value="Work">Work</option>
           <option value="Mobile">Mobile</option>
         </select>
+      </div>
+
+      <div className='error' style={{
+        display: submitted && validationErrors.phoneType ? 'block' : 'none'
+      }}>
+        {submitted && validationErrors.phoneType && `* ${validationErrors.phoneType}`}
       </div>
 
       <div>
@@ -144,6 +166,12 @@ const Submit = () => {
       <div style={{display: "block"}}>
         <label style={{marginBottom: "10px", verticalAlign: "top"}}htmlFor="bio">Bio:</label>
         <textarea id="bio" name="bio" type="text" onChange={(e)=>setBio(prev => e.target.value)}></textarea>
+      </div>
+
+      <div className='error' style={{
+        display: submitted && validationErrors.bio ? 'block' : 'none'
+      }}>
+        {submitted && validationErrors.bio && `* ${validationErrors.bio}`}
       </div>
 
       <div>
