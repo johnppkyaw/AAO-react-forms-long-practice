@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
+:root {
+  --error-msg-color: red;
+  --error-font-size: 12px
+}
+
 h1 {
   text-align: center;
 }
@@ -13,4 +18,11 @@ form {
 
 fieldset {
   display: inline;
+}
+
+.error {
+  color: var(--error-msg-color);
+  font-size: var(--error-font-size);
+  height: 12px;
+  width: 220px;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Submit = () => {
   const [name, setName] = useState('');
@@ -8,9 +8,53 @@ const Submit = () => {
   const [staff, setStaff] = useState('');
   const [bio, setBio] = useState('');
   const [emailSignup, setEmailSignup] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const errors = {};
+
+    //name validation
+    if(name.length === 0) {
+      errors.name = "Please enter your name"
+    }
+
+    //email validation
+    if(email.length === 0 || !email.includes('@')) {
+      errors.email = "Please enter your email address and it must include an '@'"
+    }
+
+    //phone number validation
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    if (phone.length > 0 && !phoneRegex.test(phone)) {
+      errors.phone = "Please enter the phone number in this format: 111-111-1111"
+    }
+
+    //phone type validation
+    if (phone.length > 0 && phoneType.length === 0) {
+      errors.phoneType = "Please choose a phone type"
+    }
+
+    //bio validation
+    if (bio.length > 280) {
+      errors.bio = "Please limit the characters to 280."
+    }
+
+    console.log(errors);
+
+
+    setValidationErrors(prev => errors);
+  },[name, email, phone, phoneType, bio]);
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    setSubmitted(prev => true);
+
+    if(Object.keys(validationErrors).length > 0) {
+      return alert(`The following errors were found:
+      ${validationErrors.name ? "* " + validationErrors.name : ""}`)
+    }
 
     const data = {
       name,
@@ -24,6 +68,16 @@ const Submit = () => {
 
     console.log(data);
 
+    setName(prev => '');
+    setEmail(prev => '');
+    setPhone(prev => '');
+    setPhoneType(prev => '');
+    setStaff(prev => '');
+    setBio(prev => '');
+    setValidationErrors(prev => {});
+    setEmailSignup(prev => false);
+    setSubmitted(prev => false);
+
   }
 
 
@@ -35,17 +89,23 @@ const Submit = () => {
       <div>
         <label htmlFor="name">Name:</label>
         <input id="name" type="text" onChange={(e) =>
-          setName(e.target.value)}></input>
+          setName(e.target.value)} value={name}></input>
+      </div>
+
+      <div className='error' style={{
+        display: submitted && validationErrors.name ? 'block' : 'none'
+      }}>
+        {submitted && validationErrors.name && `* ${validationErrors.name}`}
       </div>
 
       <div>
         <label htmlFor="email">Email:</label>
-        <input id="email" type="email" onChange={(e) => setEmail(prev=>e.target.value)}></input>
+        <input id="email" type="email" onChange={(e) => setEmail(prev=>e.target.value)} value={email}></input>
       </div>
 
       <div>
         <label htmlFor="phone">Phone number:</label>
-        <input id="phone" type="tel" onChange={(e)=> setPhone(prev => e.target.value)}></input>
+        <input id="phone" type="tel" onChange={(e)=> setPhone(prev => e.target.value)} value={phone}></input>
       </div>
 
       <div>
@@ -59,7 +119,7 @@ const Submit = () => {
       </div>
 
       <div>
-        <fieldset onChange={(e) => setStaff(prev => e.target.value)}>
+        <fieldset onChange={(e) => setStaff(prev => e.target.value)} value={staff}>
           <legend>Staff: </legend>
 
         <label htmlFor="instructor">Instructor</label>
@@ -82,7 +142,7 @@ const Submit = () => {
       </div>
 
       <div style={{display: "block"}}>
-        <label style={{marginBottom: "10px"}}htmlFor="bio">Bio:</label>
+        <label style={{marginBottom: "10px", verticalAlign: "top"}}htmlFor="bio">Bio:</label>
         <textarea id="bio" name="bio" type="text" onChange={(e)=>setBio(prev => e.target.value)}></textarea>
       </div>
 
