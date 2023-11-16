@@ -11,18 +11,38 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin: auto;
   width: fit-content;
 }
 
 fieldset {
-  display: inline;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .error {
   color: var(--error-msg-color);
   font-size: var(--error-font-size);
-  height: fit-content;
+  height: 25px;
   width: 220px;
+  margin-top: 0px;
+  margin-left: 5px;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: fit-content;
+}
+
+#sign-up-email {
+  display: flex;
+  flex-direction: row;
+}
+
+#staff {
+  margin-bottom: 19px;
 }
